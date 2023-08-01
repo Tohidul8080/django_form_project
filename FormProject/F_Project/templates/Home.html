@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+    <a href="contact_f">Add New</a>
+      <table border="1px">
+      <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>ID Number</th>
+      <th>CGPA</th>
+      
+      </tr>
+      {% for row in F_table %}
+      <tr>
+      <td>{{row.first_name}}</td>
+      <td>{{row.last_name}}</td>
+      <td>{{row.id_number}}</td>
+      <td>{{row.cgpa}}</td>
+      </tr>
+      {% endfor %}
+      
+      </table>
+
+       
+       
+       
+      
+      
+        <script src="" async defer></script>
+    </body>
+</html>
+<!-- 
+  #*************** views.py ***************************************
+
+      N_F=Forms_T.First_Forms()
+    diction={'First_test':N_F}
+
+    if request.method == 'POST':
+        N_F=Forms_T.First_Forms(request.POST)
+
+
+        if N_F.is_valid():
+            name=N_F.cleaned_data['name']
+            mail=N_F.cleaned_data['mail']
+            dob=N_F.cleaned_data['dob']
+            id=N_F.cleaned_data['id']
+            boolen_F=N_F.cleaned_data['boolen_F']
+            choices_field=N_F.cleaned_data['choices_field']
+            radio_field=N_F.cleaned_data['radio_field']
+
+            diction.update({'name':name})
+            diction.update({'mail':mail})
+            diction.update({'dob':dob})
+            diction.update({'id':id})
+            diction.update({'boolen_F':boolen_F})
+            diction.update({'choices_field':choices_field})
+            diction.update({'radio_field':radio_field})
+            
+            #diction.update({'boolen_F':N_F.cleaned_data['boolen_F']})
+            diction.update({'form_submited':'yes'})
+
+
+            # **************Forms_T.py ******************
+            from django import forms
+
+
+class First_Forms(forms.Form):
+    name=forms.CharField(required=False,label="Name",initial="tohidul",widget=forms.TextInput(attrs= {'style':'width:100px'}))
+    mail=forms.EmailField(required=False,label="Mail",widget=forms.TextInput(attrs={'placeholder':'your mail'}))
+    id=forms.IntegerField(required=False)
+    dob=forms.DateField(required=False,widget=forms.TextInput(attrs={'type':'date'}))
+    boolen_F=forms.BooleanField(required=False)
+    choices=(
+        (' ',' --selected --'),
+        ('1','First'),
+        ('2','Second'),
+        ('3','Third'),
+        ('4','Four'),
+        ('5','Five'),
+    )
+    #choices_field=forms.ChoiceField(choices=(('1','First'),('2','Second'))),widget=forms.RadioSelect
+    choices_field=forms.MultipleChoiceField(choices=choices )
+    choice=(
+        ('A','A'),
+        ('B','B'),
+        ('C','C'),
+    )
+    radio_field=forms.MultipleChoiceField(choices=choice,widget=forms.CheckboxSelectMultiple)
+
+
+#***************** home.html*****************
+  
+       <form action="" method="POST">
+       {% csrf_token %}
+       {{First_test.as_p}}
+
+       <button type="submit" value="Submit" id='submit'>Submit</button>
+       
+       </form>
+
+       <hr>
+       {% if form_submited %}
+
+       <p>Name:{{name}}</p>
+       <p>Mail:{{mail}}</p>
+       <p>Date of Birth:{{dob}}</p>
+       <p> ID:{{id}}</p>
+       <p>Boolean :{{boolen_F}}</p>
+       <p>choices_field:{{choices_field}}</p>
+       <p>radio_field:{{radio_field}}</p>
+
+       {% endif %}
+
+       #****************** validators ******************
+
+       from django import forms
+from django.core import validators
+diction.update({'t_f':n_f})
+
+class U_F(forms.Form):
+    name=forms.CharField(validators=
+    [validators.MaxLengthValidator(10),
+     validators.MinLengthValidator(4)])
+    id=forms.IntegerField(validators=[validators.MaxValueValidator(10),validators.MinValueValidator(3)])
+
+    #**********odd even ###############################
+    from django import forms
+from django.core import validators
+
+def even_or_not(value):
+    if value%2 == 1:
+        raise forms.ValidationError("please Insert an even Number!")
+class U_F(forms.Form):
+    number_field=forms.IntegerField(validators=[even_or_not])
+    
+
+-->
+
+
+
